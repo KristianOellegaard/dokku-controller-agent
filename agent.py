@@ -4,8 +4,9 @@ import redis
 import json
 import time
 import os
+import urlparse
 
-url = os.environ.get('REDIS_URL', 'redis://localhost:6379/')
+url = urlparse.urlparse(os.environ.get('REDIS_URL', 'redis://localhost:6379/'))
 pool = redis.ConnectionPool(host=url.hostname, port=url.port, db=0, password=url.password)
 redis_connection = redis.StrictRedis(connection_pool=pool)
 
