@@ -7,7 +7,7 @@ Install
 -------
 
 ```bash
-python setup.py
+python setup.py install
 ```
 
 Run
@@ -16,5 +16,5 @@ Run
 Must be root, e.g. sudo
 
 ```bash
-python agent.py
+REDIS_URL=redis://:password@dokku-controller:6379/ python agent.py
 ```
