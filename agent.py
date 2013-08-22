@@ -3,8 +3,11 @@ import socket
 import redis
 import json
 import time
+import os
 
-redis_connection = redis.StrictRedis()
+url = os.environ.get('REDIS_URL', 'redis://localhost:6379/')
+pool = redis.ConnectionPool(host=url.hostname, port=url.port, db=0, password=url.password)
+redis_connection = redis.StrictRedis(connection_pool=pool)
 
 d = Client()
 while True:
