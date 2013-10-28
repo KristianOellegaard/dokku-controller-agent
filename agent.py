@@ -17,4 +17,4 @@ while True:
     for container in containers:
         apps.append([container['Image'].replace("app/", "").replace(":latest",""), container['Ports'].split("->")[0]])
     redis_connection.publish("app_announce", json.dumps({ socket.gethostname(): apps}))
-    time.sleep(40)
+    time.sleep(10)
