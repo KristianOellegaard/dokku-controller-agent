@@ -15,6 +15,8 @@ while True:
     containers = d.containers()
     apps = []
     for container in containers:
-        apps.append([container['Image'].replace("app/", "").replace(":latest",""), container['Ports'].split("->")[0]])
+        app_name = container['Image']
+        if 'app/' in app_name and ':latest' in app_name:
+            apps.append([app_name.replace("app/", "").replace(":latest",""), container['Ports'].split("->")[0]])
     redis_connection.publish("app_announce", json.dumps({ socket.gethostname(): apps}))
     time.sleep(10)
