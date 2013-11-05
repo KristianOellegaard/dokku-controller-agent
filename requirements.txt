@@ -1,2 +1,4 @@
 docker-py==0.1.4
 redis==2.7.6
+netifaces==0.8
+netaddr==0.7.10

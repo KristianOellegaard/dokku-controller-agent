@@ -10,6 +10,7 @@ setup(
     zip_safe=False,
     include_package_data = True,
     packages = find_packages(exclude=[]),
+    py_modules=['agent'],
     install_requires=[
         open("requirements.txt").readlines(),
     ],
