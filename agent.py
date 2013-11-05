@@ -18,10 +18,11 @@ d = Client()
 def get_private_ip_or_hostname():
     for iface in netifaces.interfaces():
         if iface.startswith("eth"):
-            for address_dict in netifaces.ifaddresses(iface).values():
-                if not ":" in address_dict['addr']:
-                    if IPAddress(address_dict['addr']).is_private():
-                        return address_dict['addr']
+            for address_list in netifaces.ifaddresses(iface).values():
+                for address_dict in address_list:
+                    if not ":" in address_dict['addr']:
+                        if IPAddress(address_dict['addr']).is_private():
+                            return address_dict['addr']
     return socket.gethostname()
 
 
