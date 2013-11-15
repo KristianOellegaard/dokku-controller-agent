@@ -14,9 +14,9 @@ redis_connection = redis.StrictRedis(connection_pool=pool)
 private_ip = os.environ.get('PRIVATE_IP', None)
 if private_ip:
     private_ip = IPAddress(private_ip)
-private_ip_subnet = os.environ.get('PRIVATE_IP_SUBNET', None)
-if private_ip_subnet:
-    private_ip_subnet = IPNetwork(private_ip_subnet)
+private_network = os.environ.get('PRIVATE_NETWORK', None)
+if private_network:
+    private_network = IPNetwork(private_network)
 
 d = Client()
 
@@ -30,7 +30,7 @@ def get_private_ip_or_hostname():
                 for address_dict in address_list:
                     if not ":" in address_dict['addr']:
                         if IPAddress(address_dict['addr']).is_private():
-                            if not private_ip_subnet or IPAddress(address_dict['addr']) in private_ip_subnet:
+                            if not private_network or IPAddress(address_dict['addr']) in private_ip_subnet:
                                 return address_dict['addr']
     return socket.gethostname()
 
