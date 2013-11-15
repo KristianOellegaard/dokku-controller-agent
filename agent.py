@@ -30,7 +30,7 @@ def get_private_ip_or_hostname():
                 for address_dict in address_list:
                     if not ":" in address_dict['addr']:
                         if IPAddress(address_dict['addr']).is_private():
-                            if not private_network or IPAddress(address_dict['addr']) in private_ip_subnet:
+                            if not private_network or IPAddress(address_dict['addr']) in private_network:
                                 return address_dict['addr']
     return socket.gethostname()
 
