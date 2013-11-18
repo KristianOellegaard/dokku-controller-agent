@@ -40,8 +40,13 @@ while True:
     containers = d.containers()  # Get all current containers from docker
     for container in containers:
         app_name = container['Image']
-        if 'app/' in app_name and ':latest' in app_name:
-            apps.append([app_name.replace("app/", "").replace(":latest",""), container['Ports'].split("->")[0]])
+        if 'dokcon/' in app_name:
+            apps.append(
+                [
+                    app_name.split("dokcon/")[1].split(":")[0],
+                    container['Ports'].split("->")[0].replace("0.0.0.0:", "")
+                ]
+            )
     print "reporting %s" % json.dumps({get_private_ip_or_hostname(): apps})
     redis_connection.publish("app_announce", json.dumps({get_private_ip_or_hostname(): apps}))
     time.sleep(10)
